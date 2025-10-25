@@ -12,8 +12,10 @@ public class MainMenuUI : MonoBehaviour
     [Header("Case UI")]
     public Image caseBackground;
     public TextMeshProUGUI caseDescription;
+    public TextMeshProUGUI caseTitle;
     public Sprite[] caseImages;
     [TextArea] public string[] caseDescriptions;
+    [TextArea] public string[] caseTitles;
 
 
     [SerializeField] Button startCaseButton;
@@ -43,7 +45,7 @@ public class MainMenuUI : MonoBehaviour
 
     public void OnStartCase()
     {
-        SceneManager.LoadScene("InvestigationScene");
+        SceneManager.LoadScene("SolvingCase");
     }
 
     public void OnNextCase()
@@ -69,5 +71,6 @@ public class MainMenuUI : MonoBehaviour
     {
         caseBackground.sprite = caseImages[index];
         caseDescription.text = caseDescriptions[index];
+        caseTitle.text = caseTitles[index];
     }
 }

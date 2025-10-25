@@ -17,7 +17,7 @@ namespace Neocortex.Samples
         [SerializeField] private NeocortexThinkingIndicator thinking;
         [SerializeField] private NeocortexChatPanel chatPanel;
         [SerializeField] private NeocortexAudioChatInput audioChatInput;
-
+        [SerializeField] private CanvasGroup chatCanvasGroup;
         [Header("Text Components")]
         [SerializeField] private NeocortexTextChatInput textChatInput;
 
@@ -28,14 +28,14 @@ namespace Neocortex.Samples
             audioReceiver.OnAudioRecorded.AddListener(OnAudioRecorded);
             textChatInput.OnSendButtonClicked.AddListener(OnTextSubmitted);
         }
-        private void OnEnable()
-        {
-            audioReceiver.gameObject.SetActive(true);
-        }
-        private void OnDisable()
-        {
-            audioReceiver.gameObject.SetActive(false);
-        }
+        //private void OnEnable()
+        //{
+        //    audioReceiver.StartMicrophone();
+        //}
+        //private void OnDisable()
+        //{
+        //    audioReceiver.gameObject.SetActive(false);
+        //}
         public void OnAgentInitialized(NeocortexSmartAgent currentAgent)
         {
             if(agent != null)
@@ -56,14 +56,13 @@ namespace Neocortex.Samples
             Debug.Log("events loaded");
         }
 
-        //private IEnumerator ResetChatHistory()
-        //{
-        //    yield return new WaitForEndOfFrame();
-        //    this.gameObject.SetActive(true);
-        //    Debug.Log("Resetting chat history...");
-        //    yield return new WaitForEndOfFrame();
-        //    this.gameObject.SetActive(false);
-        //}
+        private IEnumerator ResetChatHistory()
+        {
+            yield return new WaitForEndOfFrame();
+            chatPanel.AddMessage($"({agent.name} joiner the room)", false);
+            Debug.Log("Resetting chat history...");
+            yield return new WaitForEndOfFrame();
+        }
 
         private void StartMicrophone()
         {
@@ -74,7 +73,7 @@ namespace Neocortex.Samples
         {
             Debug.Log("Audio recorded, sending to agent...");
             Debug.Log(agent);
-            agent.AudioToAudio(clip);
+            agent.AudioToText(clip);
             Debug.Log(thinking);
             thinking.Display(true);
             Debug.Log(audioChatInput);
@@ -96,32 +95,46 @@ namespace Neocortex.Samples
         private void OnChatResponseReceived(ChatResponse response)
         {
             
-            AddMessageToHistory(response.message, false);
+            
             string action = response.action;
             if (!string.IsNullOrEmpty(action))
             {
                 Debug.Log($"[ACTION] {action}");
+                switch (action)
+                {
+                    case "SFGHFSDRERTEGDRGHV":
+                        chatPanel.AddMessage("last night i saw a asfnaj", false);
+                        break;
+                    // Add more actions as needed
+                    default:
+                        Debug.LogWarning($"Unknown action received: {action}");
+                        break;
+                }
             }
-            
-            Emotions emotion = response.emotion;
-            if (emotion != Emotions.Neutral && emotion != lastEmotion)
+            else
             {
-                Debug.Log($"[EMOTION] {emotion.ToString()}");
-                lastEmotion = emotion;
-                if(emotionPopup == null)
-                {
-                    emotionPopup = agent.gameObject.GetComponentInChildren<EmotionPopup>();
-                }
-                if(emotionPopup != null)
-                {
-                    emotionPopup.gameObject.SetActive(true);
-                    emotionPopup.ShowEmotion(emotion.ToString());
-                }
-                else
-                {
-                    Debug.LogWarning("EmotionPopup component not found on the agent.");
-                }
+                AddMessageToHistory(response.message, false);
             }
+            thinking.Display(false);
+            //Emotions emotion = response.emotion;
+            //if (emotion != Emotions.Neutral && emotion != lastEmotion)
+            //{
+            //    Debug.Log($"[EMOTION] {emotion.ToString()}");
+            //    lastEmotion = emotion;
+            //    if(emotionPopup == null)
+            //    {
+            //        emotionPopup = agent.gameObject.GetComponentInChildren<EmotionPopup>();
+            //    }
+            //    if(emotionPopup != null)
+            //    {
+            //        emotionPopup.gameObject.SetActive(true);
+            //        emotionPopup.ShowEmotion(emotion.ToString());
+            //    }
+            //    else
+            //    {
+            //        Debug.LogWarning("EmotionPopup component not found on the agent.");
+            //    }
+            //}
         }
         private void OnAudioResponseReceived(AudioClip audioClip)
         {
@@ -136,12 +149,12 @@ namespace Neocortex.Samples
         private void OnTextSubmitted(string message)
         {
             chatPanel.AddMessage(message, true);
-            agent.TextToAudio(message);
+            agent.TextToText(message);
             thinking.Display(true);
         }
         public void OnChatClose()
         {
-            this.gameObject.SetActive(false);
+            chatCanvasGroup.alpha = 0;
         }
     }
 }

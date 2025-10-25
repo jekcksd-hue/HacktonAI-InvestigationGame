@@ -59,7 +59,7 @@ public class SuspectInteraction : MonoBehaviour
     {
         if (chatPanel != null)
         {
-            chatPanel.SetActive(true);
+            chatPanel.GetComponent<CanvasGroup>().alpha = 1f;
 
             if (interactionSound != null)
             {

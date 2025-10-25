@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
+using System;
 
 [System.Serializable]
 public class PageContent
@@ -15,12 +16,11 @@ public class PageContent
 
 public class ReportPanelController : MonoBehaviour
 {
-    [Header("Page Content")]
-    public List<PageContent> pages = new List<PageContent>();
+    [SerializeField] GameObject page1;
+    [SerializeField] GameObject page2;
+    [SerializeField] GameObject page3;
+    [SerializeField] GameObject page4;
 
-    [Header("UI Element References")]
-    public TextMeshProUGUI leftTextArea;
-    public TextMeshProUGUI rightTextArea;
 
     [Header("Button References")]
     public Button nextPageButton;
@@ -30,14 +30,10 @@ public class ReportPanelController : MonoBehaviour
     [HideInInspector]
     public ReportInteraction reportInteractor;
 
-    private int currentPageIndex = 0;
+    private int currentPageIndex = 1;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip interactionSound;
 
-    void Awake()
-    {
-        if (nextPageButton != null) nextPageButton.onClick.AddListener(GoToNextPage);
-        if (previousPageButton != null) previousPageButton.onClick.AddListener(GoToPreviousPage);
-        if (closeButton != null) closeButton.onClick.AddListener(ClosePanel);
-    }
 
     /// <summary>
     /// OnEnable is a special Unity function that runs EVERY TIME this GameObject is set to active.
@@ -47,66 +43,45 @@ public class ReportPanelController : MonoBehaviour
     void OnEnable()
     {
         // Reset to the first page every time the panel is enabled.
-        currentPageIndex = 0;
+        currentPageIndex = 1;
         DisplayPage(currentPageIndex);
     }
 
     private void DisplayPage(int pageIndex)
     {
-        if (pageIndex < 0 || pageIndex >= pages.Count)
+        switch (currentPageIndex)
         {
-            // If there are no pages defined, clear the text to avoid showing placeholder content.
-            if (pages.Count == 0)
-            {
-                leftTextArea.text = "";
-                rightTextArea.text = "";
-            }
-            return;
+            case 1: DisableAllPages(); page1.SetActive(true); nextPageButton.gameObject.SetActive(true);previousPageButton.gameObject.SetActive(false); audioSource.PlayOneShot(interactionSound); break;
+            case 2: DisableAllPages(); page2.SetActive(true); nextPageButton.gameObject.SetActive(true); previousPageButton.gameObject.SetActive(true); audioSource.PlayOneShot(interactionSound); break;
+            case 3: DisableAllPages(); page3.SetActive(true); nextPageButton.gameObject.SetActive(true); previousPageButton.gameObject.SetActive(true); audioSource.PlayOneShot(interactionSound); break;
+            case 4: DisableAllPages(); page4.SetActive(true); nextPageButton.gameObject.SetActive(false); previousPageButton.gameObject.SetActive(true); audioSource.PlayOneShot(interactionSound); break;
+            default:
+                break;
         }
-
-        leftTextArea.text = pages[pageIndex].leftPageText;
-        rightTextArea.text = pages[pageIndex].rightPageText;
-
-        UpdateButtonStates();
     }
 
-    private void UpdateButtonStates()
+    private void DisableAllPages()
     {
-        // --- THIS IS THE FIX FOR BUTTON VISIBILITY ---
-        // Instead of setting 'interactable', we enable/disable the entire button GameObject.
-
-        // The 'previous' button should only be VISIBLE if we are not on the first page.
-        if (previousPageButton != null)
-        {
-            previousPageButton.gameObject.SetActive(currentPageIndex > 0);
-        }
-
-        // The 'next' button should only be VISIBLE if we are not on the last page.
-        if (nextPageButton != null)
-        {
-            nextPageButton.gameObject.SetActive(currentPageIndex < pages.Count - 1);
-        }
+        page1.SetActive(false);
+        page2.SetActive(false);
+        page3.SetActive(false);
+        page4.SetActive(false);
     }
 
-    private void GoToNextPage()
+
+    public void GoToNextPage()
     {
-        if (currentPageIndex < pages.Count - 1)
-        {
-            currentPageIndex++;
-            DisplayPage(currentPageIndex);
-        }
+        currentPageIndex++;
+        DisplayPage(currentPageIndex);
     }
 
-    private void GoToPreviousPage()
+    public void GoToPreviousPage()
     {
-        if (currentPageIndex > 0)
-        {
-            currentPageIndex--;
-            DisplayPage(currentPageIndex);
-        }
+        currentPageIndex--;
+        DisplayPage(currentPageIndex);
     }
 
-    private void ClosePanel()
+    public void ClosePanel()
     {
         if (reportInteractor != null)
         {

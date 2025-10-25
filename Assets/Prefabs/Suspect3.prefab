@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 781082546173911530, guid: fb9c16129cbdeda459b7ea1d6e8c8305, type: 3}
+      propertyPath: projectId
+      value: cmh5co6cx0001l5042ktsbgrk
+      objectReference: {fileID: 0}
     - target: {fileID: 4865294787302484094, guid: fb9c16129cbdeda459b7ea1d6e8c8305, type: 3}
       propertyPath: m_Name
       value: Suspect3
@@ -52,6 +56,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6742287047705488240, guid: fb9c16129cbdeda459b7ea1d6e8c8305, type: 3}
+      propertyPath: interactionSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 725769f2c5e9dd042b97cd0be2ee9a71, type: 3}
     - target: {fileID: 6941906283845719139, guid: fb9c16129cbdeda459b7ea1d6e8c8305, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 

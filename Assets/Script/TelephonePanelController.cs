@@ -39,7 +39,7 @@ public class TelephonePanelController : MonoBehaviour
         PopulateSuspectList();
         if (currentSuspectInstance == null && SuspectManager.currentSuspect != null)
         {
-            SpawnSuspect(SuspectManager.currentSuspect);
+            //SpawnSuspect(SuspectManager.currentSuspect);
         }
     }
 
@@ -65,7 +65,7 @@ public class TelephonePanelController : MonoBehaviour
         if (profile.suspectPrefab != null)
         {
             //chat.SetCurrentSuspect(profile.suspectName);
-            currentSuspectInstance = Instantiate(profile.suspectPrefab, suspectSpawnPoint.position, suspectSpawnPoint.rotation);
+            currentSuspectInstance = Instantiate(profile.suspectPrefab, suspectSpawnPoint.position, profile.suspectPrefab.gameObject.transform.rotation);
         }
 
         Invoke(nameof(DelayedAgentInit), 0.1f);
@@ -97,6 +97,6 @@ public class TelephonePanelController : MonoBehaviour
 
     public void InitialSpawn()
     {
-        SpawnSuspect(SuspectManager.currentSuspect);
+        //SpawnSuspect(SuspectManager.currentSuspect);
     }
 }

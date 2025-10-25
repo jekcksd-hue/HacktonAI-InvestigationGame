@@ -1046,7 +1046,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &1277683281476791245
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1083,6 +1083,7 @@ MonoBehaviour:
   thinking: {fileID: 4029095908666666961}
   chatPanel: {fileID: 8349080300081829852}
   audioChatInput: {fileID: 7875163780825734756}
+  chatCanvasGroup: {fileID: 0}
   textChatInput: {fileID: 0}
 --- !u!1 &7016828011817495017
 GameObject:

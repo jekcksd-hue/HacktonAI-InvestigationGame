@@ -30,12 +30,12 @@ public class InvestigationManager : MonoBehaviour
         }
 
         // Get the ACTUAL suspect profile from the master list using the index.
-        SuspectProfile startingSuspect = telephoneController.suspectList[startingSuspectIndex];
+        //SuspectProfile startingSuspect = telephoneController.suspectList[startingSuspectIndex];
 
         // Set the global static reference. Now it's a direct reference, not a copy.
-        SuspectManager.SetCurrentSuspect(startingSuspect);
+        //SuspectManager.SetCurrentSuspect(startingSuspect);
 
-        // Tell the telephone controller to spawn the initial suspect model.
-        telephoneController.InitialSpawn();
+        //// Tell the telephone controller to spawn the initial suspect model.
+        //telephoneController.InitialSpawn();
     }
 }

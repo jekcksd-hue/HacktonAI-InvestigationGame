@@ -141,7 +141,6 @@ GameObject:
   - component: {fileID: 5552667815101227698}
   - component: {fileID: 6941906283845719139}
   - component: {fileID: 8491815423177051865}
-  - component: {fileID: 1185341479922777514}
   - component: {fileID: 781082546173911530}
   - component: {fileID: 8205653400659533233}
   - component: {fileID: 6742287047705488240}
@@ -249,27 +248,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1185341479922777514
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4865294787302484094}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5cadf2230178ed44f84eb2a32c3cb1ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Neocortex.Runtime::Neocortex.NeocortexAudioReceiver
-  usePushToTalk: 0
-  OnAudioRecorded:
-    m_PersistentCalls:
-      m_Calls: []
-  OnRecordingFailed:
-    m_PersistentCalls:
-      m_Calls: []
-  amplitudeThreshold: 0.1
-  maxWaitTime: 1
 --- !u!114 &781082546173911530
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -282,7 +260,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e6726b6a76dc27458cfb50d0d840e9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Neocortex.Runtime::Neocortex.NeocortexSmartAgent
-  projectId: cmh5co6cx0001l5042ktsbgrk
+  projectId: cmh6knbql000bl40434ufx6ln
   OnChatResponseReceived:
     m_PersistentCalls:
       m_Calls: []
