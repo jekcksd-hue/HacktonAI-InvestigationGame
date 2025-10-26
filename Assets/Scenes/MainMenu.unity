@@ -971,19 +971,11 @@ MonoBehaviour:
   - {fileID: 21300000, guid: d5ddc31f3b7af0c47bc195209246ea3a, type: 3}
   - {fileID: 21300000, guid: d5ddc31f3b7af0c47bc195209246ea3a, type: 3}
   caseDescriptions:
-  - 'Police Report
-
-
-    Teasdjfcnasiucmanssk maskjfbaskjdfnasaslkddcnas nsadnbjasd
-
-    sadasfsadgdfh
-
-    fdghdfghdfhdfghjdfhgdfhdfhdf
-
-    hfdhdfhdfhdfhdfhdfhdfdf'
+  - "In this first case, you\u2019ll have to solve the murder of Ellie Pallate.\nYour
+    task is to uncover the culprit.\nTo win the game, you must get them to confess."
   - Cooming Soon
   caseTitles:
-  - First case for the Detective Jhon Lama
+  - The Ellie Pallate Case
   - Cooming Soon
   startCaseButton: {fileID: 6534698}
 --- !u!1 &793763093

@@ -22,6 +22,10 @@ public class LampInteraction : MonoBehaviour
     [Tooltip("The sound effect to play when the lamp is toggled.")]
     public AudioClip interactionSound;
 
+
+    [SerializeField] private GameObject lightBulb;
+    [SerializeField] private Material lightOn;
+    [SerializeField] private Material lightOff;
     // --- Private Variables ---
     private AudioSource audioSource;
     private bool isMouseOver = false;
@@ -30,7 +34,8 @@ public class LampInteraction : MonoBehaviour
     {
         // Get the AudioSource component that is required to be on this object.
         audioSource = GetComponent<AudioSource>();
-
+        pointLight.enabled = !pointLight.enabled;
+        UpdateBulbMaterial();
         // Validate that the light has been assigned.
         if (pointLight == null)
         {
@@ -81,9 +86,19 @@ public class LampInteraction : MonoBehaviour
                 // PlayOneShot is perfect for non-looping sound effects.
                 audioSource.PlayOneShot(interactionSound);
             }
+            UpdateBulbMaterial();
         }
     }
+    private void UpdateBulbMaterial()
+    {
+        if (lightBulb == null || lightOn == null || lightOff == null) return;
 
+        var renderer = lightBulb.GetComponent<Renderer>();
+        if (renderer != null)
+        {
+            renderer.material = pointLight.enabled ? lightOn : lightOff;
+        }
+    }
     // --- Mouse Hover Detection ---
     private void OnMouseEnter() { isMouseOver = true; }
     private void OnMouseExit() { isMouseOver = false; }

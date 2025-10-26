@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections;
 using System;
 using Unity.VisualScripting;
+using UnityEngine.EventSystems;
 
 namespace Neocortex.Samples
 {
@@ -20,6 +21,8 @@ namespace Neocortex.Samples
         [SerializeField] private CanvasGroup chatCanvasGroup;
         [Header("Text Components")]
         [SerializeField] private NeocortexTextChatInput textChatInput;
+        [SerializeField] private GameObject endGamePanel;
+        private Animator currentAnimator;
 
         private string currentSuspect;
         private Emotions lastEmotion = Emotions.Neutral;
@@ -45,6 +48,7 @@ namespace Neocortex.Samples
                 agent.OnAudioResponseReceived.RemoveListener(OnAudioResponseReceived);
             }
             agent = currentAgent;
+            currentAnimator = currentAgent.GetComponent<Animator>();
             agent.CleanSessionID();
             chatPanel.ClearMessages();
             Debug.Log(agent.didAwake);
@@ -83,6 +87,7 @@ namespace Neocortex.Samples
         private void AddMessageToHistory(string message, bool isPlayer)
         {
             Debug.Log($"Adding message to history: {(isPlayer ? "Player" : "Agent")}: {message}");
+            currentAnimator.SetTrigger("DoTalk");
             chatPanel.AddMessage(message, isPlayer);
         }
 
@@ -102,8 +107,18 @@ namespace Neocortex.Samples
                 Debug.Log($"[ACTION] {action}");
                 switch (action)
                 {
-                    case "SFGHFSDRERTEGDRGHV":
-                        chatPanel.AddMessage("last night i saw a asfnaj", false);
+                    case "AKSJDGNIJAVDSBNVSOIUBADS":
+                        //endgame
+                        chatPanel.AddMessage("Yes it was me.I confess ...", false);
+                        StartCoroutine(WaitAndShowEndGamePanel());
+                        break;
+                    case "ASDFDSAGDASDGD":
+                        //Paula hint
+                        chatPanel.AddMessage("I’m ashamed. This could ruin my life. I’ve been seeing my boss, Mr. Fitzgerald. Last night, after drinks with colleagues, I met him. I parked near Ellie’s building and returned around midnight. One more detail: on the highway earlier, I saw Dough, we ended up side by side at a red light and made eye contact. I don’t know why he was there; maybe he was working. I know this might sound suspicious but I am not who killed Ellie she was my best friend.", false);
+                        break;
+                    case "ASDADSGGDSAPOGKL":
+                        //Cody hint
+                        chatPanel.AddMessage("I think there’s something you should know. I’m struggling financially, and I did something I’m not proud of. I made a copy of Paula’s car key and, at times, used her car without her knowing. Last night at 8:30 p.m., I drove it to a friend’s place to play music. Paula often parks under Ellie’s building to meet her boss, Mr. Fitzgerald, who is also one of Ellie’s neighbors—and I used that as a free ride. I returned the car before midnight and left everything as it was. I regret it.", false);
                         break;
                     // Add more actions as needed
                     default:
@@ -136,6 +151,13 @@ namespace Neocortex.Samples
             //    }
             //}
         }
+
+        private IEnumerator WaitAndShowEndGamePanel()
+        {
+            yield return new WaitForSeconds(1f);
+            endGamePanel.SetActive(true);
+        }
+
         private void OnAudioResponseReceived(AudioClip audioClip)
         {
             audioSource.clip = audioClip;
@@ -155,6 +177,8 @@ namespace Neocortex.Samples
         public void OnChatClose()
         {
             chatCanvasGroup.alpha = 0;
+            gameObject.transform.localScale = Vector3.zero;
+            EventSystem.current.SetSelectedGameObject(null);
         }
     }
 }

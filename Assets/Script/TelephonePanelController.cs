@@ -66,6 +66,7 @@ public class TelephonePanelController : MonoBehaviour
         {
             //chat.SetCurrentSuspect(profile.suspectName);
             currentSuspectInstance = Instantiate(profile.suspectPrefab, suspectSpawnPoint.position, profile.suspectPrefab.gameObject.transform.rotation);
+            currentSuspectInstance.name = profile.suspectPrefab.name;
         }
 
         Invoke(nameof(DelayedAgentInit), 0.1f);

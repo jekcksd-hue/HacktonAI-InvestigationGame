@@ -60,7 +60,7 @@ public class SuspectInteraction : MonoBehaviour
         if (chatPanel != null)
         {
             chatPanel.GetComponent<CanvasGroup>().alpha = 1f;
-
+            chatPanel.transform.localScale = Vector3.one;
             if (interactionSound != null)
             {
                 audioSource.PlayOneShot(interactionSound);

@@ -27,7 +27,7 @@ public class EdgeAndKeyCameraRotation : MonoBehaviour
     // Private variables to handle rotation angles
     private float yaw = 0f;   // Horizontal rotation (around Y axis)
     private float pitch = 0f; // Vertical rotation (around X axis)
-
+    [SerializeField] CanvasGroup chat;
     void Start()
     {
         // Initialize the rotation angles with the camera’s initial rotation
@@ -42,7 +42,10 @@ public class EdgeAndKeyCameraRotation : MonoBehaviour
         // --- Keyboard Input Handling (WASD) ---
         float horizontalInput = 0f;
         float verticalInput = 0f;
-
+        if (chat.alpha == 1)
+        {
+            return;
+        }
         // Horizontal rotation with A and D
         if (Input.GetKey(KeyCode.A))
         {

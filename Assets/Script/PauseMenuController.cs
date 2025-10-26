@@ -5,6 +5,8 @@ public class PauseMenuController : MonoBehaviour
 {
     [SerializeField] private GameObject pauseMenuUI;
     [SerializeField] private GameObject controlsMenuUI;
+    [SerializeField] private GameObject confirmReturn;
+    [SerializeField] private GameObject endPanel;
     private bool isPaused = false;
 
     private void Update()
@@ -35,10 +37,17 @@ public class PauseMenuController : MonoBehaviour
 
     public void RetireFromCase()
     {
-        // TODO: da implementare
-        Debug.Log("Retire from case...");
+        confirmReturn.SetActive(true);
     }
-
+    public void Retire()
+    {
+        endPanel.SetActive(true);
+        ResumeGame();
+    }
+    public void CancelRetire()
+    {
+        confirmReturn.SetActive(false);
+    }
     public void BackToMenu()
     {
         Time.timeScale = 1f;
